@@ -1,4 +1,5 @@
 require("dotenv").config();
+const compression = require("compression");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -10,7 +11,9 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//Commented out parts are the routes to be used to call to the build of client side.
+
+// Compress all HTTP responses
+app.use(compression());
 app.use(express.static(path.join(__dirname, "build")));
 
 app.get("/", (Req, res) => {
